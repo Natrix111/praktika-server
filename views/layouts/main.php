@@ -1,33 +1,38 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pop it MVC</title>
+    <title>Деканат</title>
+    <link rel="stylesheet" href="/public/style.css">
 </head>
 <body>
-<header>
-    <nav>
-        <a href="<?= app()->route->getUrl('/hello') ?>">Главная</a>
-        <?php
-        if (!app()->auth::check()):
-            ?>
-            <a href="<?= app()->route->getUrl('/login') ?>">Вход</a>
-            <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
-        <?php
-        else:
-            ?>
-            <a href="<?= app()->route->getUrl('/logout') ?>">Выход (<?= app()->auth::user()->name ?>)</a>
-        <?php
-        endif;
-        ?>
-    </nav>
+<header class="header">
+    <a href="/" class="logo">Деканат</a>
+    <?php if (app()->auth->check()): ?>
+        <div class="user-role">
+            <?= app()->auth->user()->role->name === 'admin' ? 'Администратор' : 'Сотрудник деканата' ?>
+        </div>
+    <?php endif; ?>
 </header>
-<main>
-    <?= $content ?? '' ?>
-</main>
+
+<nav>
+    <div class="menu">
+        <?php if (app()->auth->check()): ?>
+            <?php if (app()->auth->user()->role->name === 'admin'): ?>
+                <a href="/employees/add">Добавить сотрудника</a>
+            <?php endif; ?>
+            <?php if (app()->auth->user()->role->name === 'employee'): ?>
+                <a href="/buildings/add">Добавить здание</a>
+                <a href="/rooms/add">Добавить помещение</a>
+                <a href="/rooms/by-building">Помещения по зданиям</a>
+                <a href="/reports/area">Отчет по площадям</a>
+                <a href="/reports/seats">Отчет по местам</a>
+            <?php endif; ?>
+            <a href="/logout">Выход</a>
+        <?php endif; ?>
+    </div>
+</nav>
+
+<main><?= $content ?? '' ?></main>
 
 </body>
 </html>
