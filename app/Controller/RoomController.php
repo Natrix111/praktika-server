@@ -22,6 +22,33 @@ class RoomController
 
     public function byBuilding(Request $request): string
     {
-        return new View('site.rooms.by_building');
+        $buildings = Building::all();
+        $currentBuilding = null;
+        $rooms = [];
+        $searchQuery = '';
+
+        $buildingId = isset($_GET['building_id']) ? $_GET['building_id'] : null;
+        $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+
+        if ($buildingId) {
+            $currentBuilding = Building::find($buildingId);
+
+            if ($currentBuilding) {
+                $query = $currentBuilding->rooms();
+
+                if ($searchQuery) {
+                    $query->where('name', 'like', "%{$searchQuery}%");
+                }
+
+                $rooms = $query->get(['name']);
+            }
+        }
+
+        return new View('site.rooms.by_building', [
+            'buildings' => $buildings,
+            'currentBuilding' => $currentBuilding,
+            'rooms' => $rooms,
+            'searchQuery' => $searchQuery
+        ]);
     }
 }

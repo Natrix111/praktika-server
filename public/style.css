@@ -111,3 +111,40 @@ button {
 button:hover {
     background-color: #2980b9;
 }
+
+.building-header {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.room-count {
+    color: #666;
+    margin-top: 5px;
+}
+
+.rooms-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.room-item {
+    padding: 12px 15px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.room-item:hover {
+    background-color: #e9ecef;
+    transform: translateY(-2px);
+}
+
+.no-rooms {
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+}
