@@ -7,20 +7,39 @@ use Src\View;
 
 class ReportController
 {
-    public function areaReport(): string
+    public function areasReport(): string
     {
-        $buildings = [
-            ['id' => 1, 'name' => 'Здание 1', 'rooms_sum' => 200],
-            ['id' => 2, 'name' => 'Здание 2', 'rooms_sum' => 150],
-        ];
-        $total = 300;
+        // Получаем все здания с их помещениями
+        $buildings = Building::with('rooms')->get();
 
-        return new View('site.reports.area', ['buildings' => $buildings, 'total' => $total]);
+        // Добавляем вычисляемое поле с общей площадью
+        $buildings->each(function($building) {
+            $building->total_area = $building->rooms->sum('area');
+        });
+
+        // Общая площадь всех зданий
+        $grandTotal = $buildings->sum('total_area');
+
+        return new View('site.reports.area', [
+            'buildings' => $buildings,
+            'grandTotal' => $grandTotal
+        ]);
     }
 
     public function seatsReport(): string
     {
-        $buildings = Building::withSum('rooms', 'seats_count')->get();
-        return new View('site.reports.seats', ['buildings' => $buildings]);
+        // Получаем все здания с помещениями, где указано количество мест
+        $buildings = Building::with(['rooms' => function($query) {
+            $query->whereNotNull('seats_count');
+        }])->get();
+
+        // Добавляем вычисляемое поле с общим количеством мест
+        $buildings->each(function($building) {
+            $building->total_seats = $building->rooms->sum('seats_count');
+        });
+
+        return new View('site.reports.seats', [
+            'buildings' => $buildings
+        ]);
     }
 }

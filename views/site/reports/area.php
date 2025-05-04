@@ -1,11 +1,28 @@
-<h2>Отчет по площадям учебных аудиторий</h2>
-<table border="1">
-    <tr><th>Здание</th><th>Общая площадь аудиторий</th></tr>
+<h2>Общая площадь помещений по зданиям</h2>
+
+<div class="report-summary">
+    <p>Общая площадь всех зданий: <strong><?= number_format($grandTotal, 2) ?> м²</strong></p>
+</div>
+
+<table class="simple-report-table">
+    <thead>
+    <tr>
+        <th>Здание</th>
+        <th>Общая площадь помещений</th>
+    </tr>
+    </thead>
+    <tbody>
     <?php foreach ($buildings as $building): ?>
         <tr>
-            <td><?= $building['name'] ?></td>
-            <td><?= $building['rooms_sum'] ?? 0 ?> м²</td>
+            <td><?= $building->name ?></td>
+            <td><?= number_format($building->total_area, 2) ?> м²</td>
         </tr>
     <?php endforeach; ?>
-    <tr><td><b>Итого</b></td><td><b><?= $total ?> м²</b></td></tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td><strong>Итого:</strong></td>
+        <td><strong><?= number_format($grandTotal, 2) ?> м²</strong></td>
+    </tr>
+    </tfoot>
 </table>

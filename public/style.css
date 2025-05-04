@@ -148,3 +148,56 @@ button:hover {
     background-color: #f8f9fa;
     border-radius: 6px;
 }
+
+.report-summary {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.simple-report-table {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.simple-report-table th {
+    background-color: #2c3e50;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.simple-report-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.report-table {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.report-table th {
+    background-color: #2c3e50;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.report-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    text-align: right;
+}
+
+.report-table td:first-child {
+    text-align: left;
+}
+

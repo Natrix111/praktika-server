@@ -22,7 +22,7 @@ Route::add(['GET', 'POST'], '/rooms/add', [Controller\RoomController::class, 'ad
 Route::add('GET', '/rooms/by-building', [Controller\RoomController::class, 'byBuilding'])
     ->middleware('auth', 'employee');
 
-Route::add('GET', '/reports/area', [Controller\ReportController::class, 'areaReport'])
+Route::add('GET', '/reports/area', [Controller\ReportController::class, 'areasReport'])
     ->middleware('auth', 'employee');
 
 Route::add('GET', '/reports/seats', [Controller\ReportController::class, 'seatsReport'])
