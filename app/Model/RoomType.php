@@ -10,6 +10,8 @@ class RoomType extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    protected $table = 'RoomTypes';
     protected $fillable = [
         'name'
     ];

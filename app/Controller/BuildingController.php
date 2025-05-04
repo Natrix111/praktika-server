@@ -11,6 +11,12 @@ class BuildingController
 {
     public function add(Request $request): string
     {
+        if ($request->method === 'POST' && Building::create([
+                ...$request->all(),
+                'created_by' => Auth::user()->id
+            ])) {
+            app()->route->redirect('/');
+        }
         return new View('site.buildings.add');
     }
 }
