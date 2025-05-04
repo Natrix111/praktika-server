@@ -5,18 +5,51 @@ use Model\Room;
 use Model\Building;
 use Model\RoomType;
 use Src\Request;
+use Src\Validator\Validator;
 use Src\View;
 
 class RoomController
 {
     public function add(Request $request): string
     {
-        if ($request->method === 'POST' && Room::create($request->all())) {
-            app()->route->redirect('/');
+        $buildings = Building::all();
+        $types = RoomType::all();
+
+        if ($request->method === 'POST') {
+            $validator = new Validator($request->all(), [
+                'name' => ['required'],
+                'type_id' => ['required', 'numeric'],
+                'building_id' => ['required', 'numeric'],
+                'area' => [
+                    'required',
+                    'numeric',
+                    'positive',
+                    "area_available:{$request->building_id}"
+                ],
+                'seats_count' => ['numeric', 'positive']
+            ], [
+                'required' => 'Поле :field обязательно для заполнения',
+                'numeric' => 'Поле :field должно быть числом',
+                'positive' => 'Поле :field должно быть положительным числом',
+                'area_available' => 'В здании недостаточно свободной площади'
+            ]);
+
+            if ($validator->fails()) {
+                return new View('site.rooms.add', [
+                    'buildings' => $buildings,
+                    'types' => $types,
+                    'message' => $validator->errors()
+                ]);
+            }
+
+            if (Room::create($request->all())) {
+                app()->route->redirect('/');
+            }
         }
+
         return new View('site.rooms.add', [
-            'buildings' => Building::all(),
-            'types' => RoomType::all()
+            'buildings' => $buildings,
+            'types' => $types
         ]);
     }
 

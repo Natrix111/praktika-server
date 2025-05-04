@@ -13,6 +13,11 @@ return [
     ],
     'validators' => [
         'required' => \Validators\RequireValidator::class,
-        'unique' => \Validators\UniqueValidator::class
+        'unique' => \Validators\UniqueValidator::class,
+        'numeric' => \Validators\NumericValidator::class,
+        'positive' => \Validators\PositiveValidator::class,
+        'image' => \Validators\ImageValidator::class,
+        'min' => \Validators\MinValidator::class,
+        'area_available' => \Validators\AreaAvailableValidator::class
     ]
 ];

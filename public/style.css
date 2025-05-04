@@ -201,3 +201,12 @@ button:hover {
     text-align: left;
 }
 
+.error-message {
+    color: #e74c3c;
+    background-color: #fdecea;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border-left: 4px solid #e74c3c;
+}
+
