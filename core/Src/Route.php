@@ -8,6 +8,7 @@ use FastRoute\RouteCollector;
 use FastRoute\RouteParser\Std;
 use FastRoute\DataGenerator\MarkBased;
 use FastRoute\Dispatcher\MarkBased as Dispatcher;
+use Natrix\RequestValidator\RequestValidator;
 use Src\Traits\SingletonTrait;
 
 class Route
@@ -94,13 +95,28 @@ class Route
             case Dispatcher::FOUND:
                 $handler = $routeInfo[1];
                 $vars = array_values($routeInfo[2]);
-                //Вызываем обработку всех Middleware
-                $vars[] = Middleware::single()->go($httpMethod, $uri, new Request());
+
+                $request = new Request();
+
+                // Проверяем тип параметров метода контроллера
                 $class = $handler[0];
-                $action = $handler[1];
-                call_user_func([new $class, $action], ...$vars);
+                $method = $handler[1];
+                $reflection = new \ReflectionMethod($class, $method);
+
+                foreach ($reflection->getParameters() as $parameter) {
+                    if (is_subclass_of($parameter->getType()->getName(), RequestValidator::class)) {
+                        // Создаем экземпляр запроса-валидатора
+                        $requestClass = $parameter->getType()->getName();
+                        $request = new $requestClass($request);
+                        break;
+                    }
+                }
+
+                $vars[] = Middleware::single()->go($httpMethod, $uri, $request);
+                call_user_func([new $class, $method], ...$vars);
                 break;
         }
     }
+
 
 }
