@@ -12,13 +12,13 @@
 
 <form method="post" enctype="multipart/form-data">
     <label>
-        ФИО: <input type="text" name="name" required>
+        ФИО: <input type="text" name="name">
     </label><br>
     <label>
-        Логин: <input type="text" name="login" required>
+        Логин: <input type="text" name="login">
     </label><br>
     <label>
-        Пароль: <input type="password" name="password" required>
+        Пароль: <input type="password" name="password">
     </label><br>
     <label>
         Аватар: <input type="file" name="avatar" accept="image/*">

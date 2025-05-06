@@ -1152,12 +1152,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Natrix111/validator.git",
-                "reference": "034bc2c44f28769577ca5ca056366ae3ea89ab92"
+                "reference": "9096b0471c0bf9258d5cd79bbbc3506d70522c66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Natrix111/validator/zipball/034bc2c44f28769577ca5ca056366ae3ea89ab92",
-                "reference": "034bc2c44f28769577ca5ca056366ae3ea89ab92",
+                "url": "https://api.github.com/repos/Natrix111/validator/zipball/9096b0471c0bf9258d5cd79bbbc3506d70522c66",
+                "reference": "9096b0471c0bf9258d5cd79bbbc3506d70522c66",
                 "shasum": ""
             },
             "require": {
@@ -1186,7 +1186,7 @@
                 "issues": "https://github.com/Natrix111/validator/issues",
                 "source": "https://github.com/Natrix111/validator/tree/main"
             },
-            "time": "2025-05-06T04:52:47+00:00"
+            "time": "2025-05-06T07:02:34+00:00"
         },
         {
             "name": "nesbot/carbon",

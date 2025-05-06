@@ -4,6 +4,8 @@ namespace Controller;
 use Model\Room;
 use Model\Building;
 use Model\RoomType;
+use Requests\RoomRequest;
+use RequestValidator\Exceptions\ValidationException;
 use Src\Request;
 use Src\Validator\Validator;
 use Src\View;
@@ -16,34 +18,19 @@ class RoomController
         $types = RoomType::all();
 
         if ($request->method === 'POST') {
-            $validator = new Validator($request->all(), [
-                'name' => ['required'],
-                'type_id' => ['required', 'numeric'],
-                'building_id' => ['required', 'numeric'],
-                'area' => [
-                    'required',
-                    'numeric',
-                    'positive',
-                    "area_available:{$request->building_id}"
-                ],
-                'seats_count' => ['numeric', 'positive']
-            ], [
-                'required' => 'Поле :field обязательно для заполнения',
-                'numeric' => 'Поле :field должно быть числом',
-                'positive' => 'Поле :field должно быть положительным числом',
-                'area_available' => 'В здании недостаточно свободной площади'
-            ]);
+            try {
+                $validatedData = (new RoomRequest($request->all()))->validate();
 
-            if ($validator->fails()) {
+                if (Room::create($validatedData)) {
+                    app()->route->redirect('/rooms');
+                }
+            } catch (ValidationException $e) {
                 return new View('site.rooms.add', [
                     'buildings' => $buildings,
                     'types' => $types,
-                    'message' => $validator->errors()
+                    'message' => $e->getErrors(),
+                    'old' => $request->all()
                 ]);
-            }
-
-            if (Room::create($request->all())) {
-                app()->route->redirect('/');
             }
         }
 
