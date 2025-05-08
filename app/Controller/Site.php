@@ -41,15 +41,15 @@ class Site
                     ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE)]);
             }
 
-            $data = $request->all();
-            $data['role_id'] = 1;
-
-            if (User::create($data)) {
+            if (User::create([...$request->all(), 'role_id' => 1])) {
                 app()->route->redirect('/login');
+                return false;
             }
+
         }
         return new View('site.signup');
     }
+
 
 
     public function login(Request $request): string
