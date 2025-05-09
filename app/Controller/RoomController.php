@@ -22,7 +22,7 @@ class RoomController
                 $validatedData = (new RoomRequest($request->all()))->validate();
 
                 if (Room::create($validatedData)) {
-                    app()->route->redirect('/rooms');
+                    app()->route->redirect('/');
                 }
             } catch (ValidationException $e) {
                 return new View('site.rooms.add', [

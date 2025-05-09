@@ -19,5 +19,12 @@ return [
         'image' => \Validators\ImageValidator::class,
         'min' => \Validators\MinValidator::class,
         'area_available' => \Validators\AreaAvailableValidator::class
-    ]
+    ],
+    'providers' => [
+        'kernel' => \Providers\KernelProvider::class,
+        'route' => \Providers\RouteProvider::class,
+        'db' => \Providers\DBProvider::class,
+        'auth' => \Providers\AuthProvider::class,
+    ],
+
 ];
