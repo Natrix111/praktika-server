@@ -22,7 +22,7 @@ class Request
         return $this->body + $this->files();
     }
 
-    public function set($field, $value):void
+    public function set($field, $value): void
     {
         $this->body[$field] = $value;
     }
@@ -43,5 +43,30 @@ class Request
             return $this->body[$key];
         }
         throw new Error('Accessing a non-existent property');
+    }
+
+    public function headers(string $name = null): array|string|null
+    {
+        $headers = getallheaders();
+
+        if ($name === null) {
+            return $headers;
+        }
+
+        return $headers[$name] ?? null;
+    }
+
+    // Добавляем метод для получения пути из URI
+    public function getUri(): string
+    {
+        // Возвращаем путь из REQUEST_URI
+        $uri = $_SERVER['REQUEST_URI'] ?? '/';
+
+        // Убираем query string, если он есть
+        if (($pos = strpos($uri, '?')) !== false) {
+            $uri = substr($uri, 0, $pos);
+        }
+
+        return $uri;
     }
 }

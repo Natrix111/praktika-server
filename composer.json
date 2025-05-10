@@ -15,7 +15,8 @@
         "illuminate/events": "10.x-dev",
         "nikic/fast-route": "^2.0@dev",
         "natrix/request-validator": "dev-main",
-        "natrix/validator": "dev-main"
+        "natrix/validator": "dev-main",
+        "jurapro/collect": "dev-master"
 
     },
     "autoload": {

@@ -4,6 +4,7 @@ namespace Controller;
 
 use Model\Post;
 use Model\Room;
+use Src\Auth\Auth;
 use Src\Request;
 use Src\View;
 

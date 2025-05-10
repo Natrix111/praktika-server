@@ -8,8 +8,10 @@ return [
         'employee' => \Middlewares\EmployeeMiddleware::class,
     ],
     'routeAppMiddleware' => [
-        'trim' => \Middlewares\TrimMiddleware::class,
         'specialChars' => \Middlewares\SpecialCharsMiddleware::class,
+        'trim' => \Middlewares\TrimMiddleware::class,
+        'json' => \Middlewares\JSONMiddleware::class,
+        'token' => \Middlewares\TokenAuthMiddleware::class,
     ],
     'validators' => [
         'required' => \Validators\RequireValidator::class,
