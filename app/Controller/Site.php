@@ -46,6 +46,7 @@ class Site
 
             if (User::create($data)) {
                 app()->route->redirect('/login');
+                return true;
             }
         }
         return new View('site.signup');

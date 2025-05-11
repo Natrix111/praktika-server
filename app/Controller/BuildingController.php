@@ -18,7 +18,8 @@ class BuildingController
                 $validatedData['created_by'] = app()->auth->user()->id;
 
                 if (Building::create($validatedData)) {
-                    app()->route->redirect('/buildings');
+                    app()->route->redirect('/');
+                    return true;
                 }
             } catch (ValidationException $e) {
                 return new View('site.buildings.add', [

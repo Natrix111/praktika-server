@@ -10,7 +10,7 @@ class BuildingRequest extends AbstractRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'],
+            'name' => ['required', 'unique:buildings,name'],
             'address' => ['required'],
             'area' => ['numeric', 'positive']
         ];
@@ -20,6 +20,7 @@ class BuildingRequest extends AbstractRequest
     {
         return [
             'required' => 'Поле :field обязательно',
+            'unique' => 'Поле :field должно быть уникально',
             'numeric' => 'Поле :field должно быть числом',
             'positive' => 'Поле :field должно быть положительным числом'
         ];
