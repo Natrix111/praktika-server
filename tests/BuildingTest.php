@@ -66,9 +66,14 @@ class BuildingTest extends TestCase
             ],
             [
                 'POST',
-                ['name' => 'школа 26', 'address' => 'Test', 'area' => -100],
+                ['name' => 'New Building', 'address' => 'Test', 'area' => -100],
                 '{"name":["Поле area должно быть положительным числом"]}'
             ],
+            [
+                'POST',
+                ['name' => 'New Building ' . rand(1, 10000), 'address' => 'New Address', 'area' => 150],
+                'Location: /'
+            ]
         ];
     }
 
